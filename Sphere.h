@@ -31,4 +31,5 @@ struct Sphere {
         float t_val2 = -dot(ray.direction, ray.origin) - sqrt(num);
         return {true, std::min(t_val, t_val2)};
     }
+    Sphere(Color c) : color{c}, radius(1)    {}
 };

@@ -3,7 +3,12 @@ project(raytracer)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(raytracer main.cpp
+find_package(OpenGL REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(GLEW REQUIRED)
+
+
+add_executable(raytracer
         main.cpp
         Ray.h
         Vector3.h
@@ -12,3 +17,9 @@ add_executable(raytracer main.cpp
         Camera.h
         World.cpp
         World.h)
+
+target_link_libraries(raytracer
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)

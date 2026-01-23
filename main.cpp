@@ -175,13 +175,15 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     World world;
-    Sphere sphere1;
+    Sphere sphere1(Sphere::Color::red);
     world.addSphere(sphere1);
     uint8_t* image = world.camera.rayTrace(world.spheres);
 
     // Create the image (RGB Array) to be displayed
+
     const int width  = world.camera.WIDTH; // keep it in powers of 2!
     const int height = world.camera.HEIGHT; // keep it in powers of 2!
+
     //unsigned char image[width*height*3];
     // for(int i = 0; i < height; i++)
     // {

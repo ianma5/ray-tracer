@@ -21,7 +21,7 @@ private:
     struct val {
         Vector3 viewpoint {0,0,-3};
         Vector3 upVector {0,1,0};
-        Vector3 right {};
+        Vector3 right {1,0,0};
         Vector3 lookAt {0,0,1};
     };
     val cv {};
