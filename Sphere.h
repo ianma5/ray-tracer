@@ -21,15 +21,16 @@ struct Sphere {
     };
     Color color;
     std::pair<bool, float> intersect(const Ray &ray, float min, float max) const {
-        float num = dot(ray.direction, ray.origin);
+        Vector3 originOffset = ray.origin - center;
+        float num = dot(ray.direction, originOffset);
         num *= num;
-        num = num - dot(ray.origin, ray.origin) + 1;
+        num = num - dot(originOffset, originOffset) + (radius * radius);
         if (num < 0) {
             return {false, -1};
         }
-        float t_val = -dot(ray.direction, ray.origin) + sqrt(num);
-        float t_val2 = -dot(ray.direction, ray.origin) - sqrt(num);
+        float t_val = -dot(ray.direction, originOffset) + sqrt(num);
+        float t_val2 = -dot(ray.direction, originOffset) - sqrt(num);
         return {true, std::min(t_val, t_val2)};
     }
-    Sphere(Color c) : color{c}, radius(1)    {}
+    Sphere(Vector3 pos, int r, Color c) : center(pos), color{c}, radius(r) {}
 };

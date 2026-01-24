@@ -1,7 +1,6 @@
 #include "Camera.h"
 
 #include <iostream>
-#include <ostream>
 
 uint8_t* Camera::rayTrace(const std::vector<Sphere> &spheres) {
     for (int i = 0; i < WIDTH*HEIGHT; i++) {
@@ -12,7 +11,6 @@ uint8_t* Camera::rayTrace(const std::vector<Sphere> &spheres) {
             if (!p.first) continue;
 
             const uint32_t sphereColor = static_cast<uint32_t>(currentSphere->color);
-            // std::cout << "hit." << std::endl;
             int x = i % WIDTH; // converts i into x coordinate
             int y = i / WIDTH; // converts i into y coordinate
             int base = x * 3;
