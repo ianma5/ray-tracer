@@ -1,10 +1,8 @@
 #include "Camera.h"
 
-#include <iostream>
-
 uint8_t* Camera::rayTrace(const std::vector<Sphere> &spheres) {
     for (int i = 0; i < WIDTH*HEIGHT; i++) {
-        Ray ray = makeRay(i % WIDTH, i / WIDTH); // form the ray for the current pixel
+        Ray ray  = makeRay(i % WIDTH, i / WIDTH); // form the ray for the current pixel
         for (int j = 0; j < spheres.size(); j++) {
             const Sphere *currentSphere = &spheres[j];
             std::pair<bool, float> p = currentSphere->intersect(ray, 0 , INFINITY);

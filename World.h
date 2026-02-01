@@ -9,9 +9,8 @@
 class World {
 public:
     Camera camera {};
-
-    void addSphere(Sphere s);
     std::vector<Sphere> spheres;
+    void addSphere(const Sphere &s) {spheres.push_back(s);};
 };
 
 

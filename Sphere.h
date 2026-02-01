@@ -1,8 +1,5 @@
-//
-// Created by ian on 1/23/26.
-//
-#include <cmath>
 #pragma once
+#include <cmath>
 
 #ifndef RAYTRACER_SPHERE_H
 #define RAYTRACER_SPHERE_H

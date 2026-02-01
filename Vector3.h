@@ -23,7 +23,7 @@ inline Vector3 operator-(const Vector3& a, const Vector3& b) {
     return {a.x-b.x, a.y-b.y, a.z-b.z};
 }
 
-inline Vector3 operator*(const Vector3& a, float b) {
+inline Vector3 operator*(const Vector3& a, const float b) {
     return {a.x * b, a.y * b, a.z * b};
 }
 
@@ -35,6 +35,6 @@ inline float dot(const Vector3& a, const Vector3& b) {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-inline Vector3 operator/(const Vector3& a, float b) {
+inline Vector3 operator/(const Vector3& a, const float b) {
     return {a.x / b, a.y / b, a.z / b};
 }

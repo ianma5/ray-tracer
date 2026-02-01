@@ -15,7 +15,6 @@ add_executable(raytracer
         Sphere.h
         Camera.cpp
         Camera.h
-        World.cpp
         World.h)
 
 target_link_libraries(raytracer
