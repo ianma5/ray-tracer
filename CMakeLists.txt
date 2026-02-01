@@ -15,7 +15,8 @@ add_executable(raytracer
         Sphere.h
         Camera.cpp
         Camera.h
-        World.h)
+        World.h
+        Light.h)
 
 target_link_libraries(raytracer
         OpenGL::GL

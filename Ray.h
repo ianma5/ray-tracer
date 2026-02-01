@@ -14,5 +14,4 @@ struct Ray {
     Vector3 direction;
 
     Ray(Vector3 o, Vector3 d) : origin(o), direction(d) {}
-    void normalize() {}
 };

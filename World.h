@@ -3,14 +3,21 @@
 #include <vector>
 
 #include "Camera.h"
+#include "Light.h"
 #include "Sphere.h"
 
 
 class World {
 public:
     Camera camera {};
-    std::vector<Sphere> spheres;
-    void addSphere(const Sphere &s) {spheres.push_back(s);};
+
+    std::vector<Light> lights {};
+    std::vector<Sphere> spheres {};
+
+    void addSphere(const Sphere &s) {spheres.push_back(s);}
+    void addLight(const Light &l) {lights.push_back(l);}
+
+    World() {}
 };
 
 

@@ -8,16 +8,12 @@
 
 
 struct Sphere {
-    float radius;
-    Vector3 center;
+    float radius {};
+    Vector3 center {};
+    float kd = 1.0f; // diffuse coefficient
 
-    enum class Color: int {
-        red = 0xFF0000,
-        green = 0x00FF00,
-        blue = 0x0000FF,
-    };
-    Color color;
-    std::pair<bool, float> intersect(const Ray &ray, float min, float max) const {
+    int color;
+    std::pair<bool, float>intersect(const Ray &ray, float min, float max) const {
         Vector3 originOffset = ray.origin - center;
         float num = dot(ray.direction, originOffset);
         num *= num;
@@ -29,5 +25,5 @@ struct Sphere {
         float t_val2 = -dot(ray.direction, originOffset) - sqrt(num);
         return {true, std::min(t_val, t_val2)};
     }
-    Sphere(Vector3 pos, int r, Color c) : center(pos), color{c}, radius(r) {}
+    Sphere( float r, Vector3 pos, int c) : center(pos), color{c}, radius(r) {}
 };

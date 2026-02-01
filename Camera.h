@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <vector>
 
+#include "Light.h"
 #include "Ray.h"
 #include "Sphere.h"
 
@@ -12,7 +13,7 @@ public:
     static constexpr int HEIGHT{256};
     static constexpr float PIXEL_DISTANCE{0.05};
 
-    uint8_t* rayTrace(const std::vector<Sphere> &spheres);
+    uint8_t* rayTrace(const std::vector<Sphere> &spheres, const std::vector<Light> &lights);
     Ray makeRay(int xi, int yi);
 
 

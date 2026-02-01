@@ -5,8 +5,7 @@
 #ifndef RAYTRACER_VECTOR3_H
 #define RAYTRACER_VECTOR3_H
 
-#endif //RAYTRACER_VECTOR3_H
-
+#include <cmath>
 struct Vector3 {
     float x{}, y{}, z{};
 };
@@ -38,3 +37,10 @@ inline float dot(const Vector3& a, const Vector3& b) {
 inline Vector3 operator/(const Vector3& a, const float b) {
     return {a.x / b, a.y / b, a.z / b};
 }
+
+inline Vector3 normalize(const Vector3& a) {
+    const float magnitude = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+    return a/magnitude;
+}
+
+#endif //RAYTRACER_VECTOR3_H
