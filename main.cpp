@@ -177,25 +177,26 @@ int main()
     World world;
     world.addShape(std::make_unique<Sphere>(
     1.5f,                     // radius
-    Vector3{ -2.0f, 0.0f, 7.0f }, // center (left sphere)
+    Vector3{ -2.0f, -2.4f, 5.0f }, // center (left sphere)
     0x0F35FF,                 // blue
-    0.9f,                     // diffuse coefficient
-    0.3f,                     // specular coefficient
+    1.25f,                     // diffuse coefficient
+    0.1f,                     // specular coefficient
     32.0f                     // shininess (wide highlight)
     ));
 
     world.addShape(std::make_unique<Sphere>(
         1.5f,                     // radius
-        Vector3{ 4.0f, 0.0f, 4.0f },  // center (right sphere)
+        Vector3{ 4.0f, -2.4f, 4.0f },  // center (right sphere)
         0xFF007F,                 // pink
         0.7f,                     // diffuse coefficient
         1.5f,                     // specular coefficient
         32.0f                    // shininess (tight highlight)
     ));
     world.addLight(Light(
-    Vector3{ 0.0f, 5.0f, 4.0f }, // above + slightly in front
+    Vector3{ 0.0f, 2.0f, 2.5f }, // above + slightly in front
     20.0f ));
-    world.addShape(std::make_unique<Plane>(Plane({0,-2,0}, {0,1,0}, 0x808080, 1.0f, 0.1f, 10.0)));
+    world.addShape(std::make_unique<Plane>(Plane({0,-4.0f,0}, {0,1,0}, 0x808080, 1.0f, 0.1f, 10.0)));
+
     uint8_t* image = world.camera.rayTrace(world.shapes, world.lights);
 
     // Create the image (RGB Array) to be displayed

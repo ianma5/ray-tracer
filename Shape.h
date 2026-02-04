@@ -33,6 +33,13 @@ struct Sphere : Shape {
         }
         float t_val = -dot(ray.direction, originOffset) + sqrt(dP);
         float t_val2 = -dot(ray.direction, originOffset) - sqrt(dP);
+        // choose nearest valid t
+        float t = t_val;
+        if (t < min || t > max) {
+            t = t_val2;
+            if (t < min || t > max)
+                return {false, -1};
+        }
         return {true, std::min(t_val, t_val2)};
     }
     Vector3 getNormal(const Vector3 &hitPoint) const override {
@@ -52,6 +59,8 @@ struct Plane : Shape {
         float divisor = dot(normal, ray.direction);
         if (divisor == 0) return {false, -1}; // if T is zero, there is no hit
         float t = dot(normal, (center - ray.origin)) / divisor;
+        if (t < min || t > max)
+            return {false, -1};
 
         return {true, t};
     }

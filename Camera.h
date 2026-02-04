@@ -16,11 +16,10 @@ public:
     uint8_t* rayTrace(const std::vector<std::unique_ptr<Shape>> &shapes, const std::vector<Light> &lights);
     Ray makeRay(int xi, int yi);
 
-
 private:
     uint8_t buffer[HEIGHT][WIDTH * 3] {};
     struct val {
-        Vector3 viewpoint {0,0,-3};
+        Vector3 viewpoint {0,4.0f,-5.0};
         Vector3 upVector {0,1,0};
         Vector3 right {1,0,0};
         Vector3 lookAt {0,-0.3f,1};
