@@ -175,28 +175,28 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     World world;
-    Light light({0,3,0}, 15.0);
+    world.addShape(std::make_unique<Sphere>(
+    1.5f,                     // radius
+    Vector3{ -2.0f, 0.0f, 7.0f }, // center (left sphere)
+    0x0F35FF,                 // blue
+    0.9f,                     // diffuse coefficient
+    0.3f,                     // specular coefficient
+    32.0f                     // shininess (wide highlight)
+    ));
 
-    //world.addLight(Light({0, 3, 0}, 1));
-    // world.addSphere(Sphere(0.5, {-2, -2, 8}, 0x00FFFFFF));
-    // world.addSphere(Sphere(1, {-2, -2, 5}, 0x007FFF));
-    // world.addSphere(Sphere(2, {2, 1, 5}, 0xFF007F));
-    //
-    // world.addSphere(Sphere(0.6, {-4,  1, 6}, 0xFFAA00)); // orange
-    // world.addSphere(Sphere(0.8, {-1,  2, 4}, 0x00FF00)); // green
-    // world.addSphere(Sphere(0.7, { 1, -1, 4}, 0x0000FF)); // blue
-    // world.addSphere(Sphere(1.2, { 4,  0, 7}, 0xFFFFFF)); // white (tests clamp/blowout)
-    // world.addSphere(Sphere(0.9, { 0,  0, 3}, 0xAAAAAA)); // gray (center, closer)
-    // world.addSphere(Sphere(0.5, { 3, -2, 5}, 0x00FFFF)); // cyan
-    // world.addSphere(Sphere(0.4, {-3, -1, 4}, 0xFF0000)); // red (small, near)
-    // world.addSphere(Sphere(1.5, { 2,  3, 9}, 0x8A2BE2)); // violet (far + big)
-    // world.addSphere(Sphere(0.6, { 5, -1, 6}, 0xFFD700)); // gold (right side)
-    // world.addSphere(Sphere(0.7, {-5, -3,10}, 0xFF69B4)); // pink (far corner)
-    // world.addSphere(Sphere(1.0, { 1,  4, 6}, 0x00FF7F)); // spring green (upper)
-    // world.addSphere(Sphere(0.5, {-1,  0, 7}, 0x1E90FF)); // dodger blue (behind center)
-    world.addSphere(Sphere(2.0, {-1,0,8}, 0x0000FF));
-    world.addLight(light);
-    uint8_t* image = world.camera.rayTrace(world.spheres, world.lights);
+    world.addShape(std::make_unique<Sphere>(
+        1.5f,                     // radius
+        Vector3{ 4.0f, 0.0f, 4.0f },  // center (right sphere)
+        0xFF007F,                 // pink
+        0.7f,                     // diffuse coefficient
+        1.5f,                     // specular coefficient
+        32.0f                    // shininess (tight highlight)
+    ));
+    world.addLight(Light(
+    Vector3{ 0.0f, 5.0f, 4.0f }, // above + slightly in front
+    20.0f ));
+    world.addShape(std::make_unique<Plane>(Plane({0,-2,0}, {0,1,0}, 0x808080, 1.0f, 0.1f, 10.0)));
+    uint8_t* image = world.camera.rayTrace(world.shapes, world.lights);
 
     // Create the image (RGB Array) to be displayed
 

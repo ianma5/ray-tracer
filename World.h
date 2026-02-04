@@ -4,7 +4,6 @@
 
 #include "Camera.h"
 #include "Light.h"
-#include "Sphere.h"
 
 
 class World {
@@ -12,11 +11,11 @@ public:
     Camera camera {};
 
     std::vector<Light> lights {};
-    std::vector<Sphere> spheres {};
+    std::vector<std::unique_ptr<Shape>> shapes {};
 
     float ambient = 0.3f;
 
-    void addSphere(const Sphere &s) {spheres.push_back(s);}
+    void addShape(std::unique_ptr<Shape> s) {shapes.push_back(std::move(s));}
     void addLight(const Light &l) {lights.push_back(l);}
 
     World() {}

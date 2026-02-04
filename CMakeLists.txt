@@ -12,11 +12,11 @@ add_executable(raytracer
         main.cpp
         Ray.h
         Vector3.h
-        Sphere.h
         Camera.cpp
         Camera.h
         World.h
-        Light.h)
+        Light.h
+        Shape.h)
 
 target_link_libraries(raytracer
         OpenGL::GL

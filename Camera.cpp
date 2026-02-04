@@ -1,29 +1,30 @@
 #include "Camera.h"
-
 #include "Light.h"
 #include <algorithm>
+#include <memory>
+#include "Shape.h"
 
 
-uint8_t* Camera::rayTrace(const std::vector<Sphere> &spheres, const std::vector<Light> &lights) {
+uint8_t* Camera::rayTrace(const std::vector<std::unique_ptr<Shape>> &shapes, const std::vector<Light> &lights) {
     for (int i = 0; i < WIDTH*HEIGHT; i++) {
         Ray ray  = makeRay(i % WIDTH, i / WIDTH); // form the ray for the current pixel
-        const Sphere *currentSphere = nullptr;
-        float st = INFINITY;
+        const Shape *currentShape = nullptr;
+        float minT = INFINITY;
 
-        for (int j = 0; j < spheres.size(); j++) {
-            const Sphere *tsphere = &spheres[j]; // locate the current sphere
-            std::pair<bool, float> p = tsphere->intersect(ray, 0 , INFINITY); // determine intersection
+        for (int j = 0; j < shapes.size(); j++) {
+            const auto *tempShape = shapes[j].get(); // locate the current shape
+            std::pair<bool, float> p = tempShape->intersect(ray, 0 , INFINITY); // determine intersection
             if (!p.first) continue; // is not visible to the screen
-            if (p.second < st) {
-                currentSphere = tsphere;
-                st = p.second;
+            if (p.second < minT) {
+                currentShape = tempShape;
+                minT = p.second;
             }
         }
-        if (!currentSphere) continue;
+        if (!currentShape) continue;
 
         float Ld = 0.3f;
-        Vector3 hitPoint = ray.origin + (st * (ray.direction));
-        Vector3 normal = normalize(hitPoint - currentSphere->center);
+        Vector3 hitPoint = ray.origin + (minT * (ray.direction));
+        Vector3 normal = normalize(currentShape->getNormal(hitPoint));
 
         for (int z = 0; z < lights.size(); z++) {
             const Light* currentLight = &lights[z];
@@ -31,20 +32,20 @@ uint8_t* Camera::rayTrace(const std::vector<Sphere> &spheres, const std::vector<
             float rSquared = dot(vL, vL);
             vL = normalize(vL);
 
-            Ld += currentSphere->kd * (lights[z].intensity / (rSquared)) * std::max(0.0f, dot(normal, vL)); // diffuse
+            Ld += currentShape->diffuseCoefficient * (lights[z].intensity / (rSquared)) * std::max(0.0f, dot(normal, vL)); // diffuse
 
             // now calculate specular
 
             Vector3 vR = normalize( 2*dot(normal, vL)*normal-vL); // solve for vR
 
             // now that we have the vR vector, calculate the specular light and add it to the total light
-            float test = currentSphere->ks * (lights[z].intensity / rSquared) * std::pow(std::max(0.0f, dot(normalize(ray.origin - hitPoint), vR)), 50);
+            float test = currentShape->specularCoefficient * (lights[z].intensity / rSquared) * std::pow(std::max(0.0f, dot(normalize(ray.origin - hitPoint), vR)), 50);
             Ld += test;
         }
 
         Ld = std::clamp(Ld, 0.0f, 1.0f);
 
-        const uint32_t sphereColor = static_cast<uint32_t>(currentSphere->color);
+        const uint32_t sphereColor = static_cast<uint32_t>(currentShape->color);
         int x = i % WIDTH; // converts i into x coordinate
         int y = i / WIDTH; // converts i into y coordinate
         int base = x * 3;
