@@ -9,9 +9,9 @@
 
 class Camera {
 public:
-    static constexpr int WIDTH{256};
-    static constexpr int HEIGHT{256};
-    static constexpr float PIXEL_DISTANCE{0.05};
+    static constexpr int WIDTH{512};
+    static constexpr int HEIGHT{512};
+    static constexpr float PIXEL_DISTANCE{0.03};
 
     uint8_t* rayTrace(const std::vector<Sphere> &spheres, const std::vector<Light> &lights);
     Ray makeRay(int xi, int yi);

@@ -22,14 +22,24 @@ uint8_t* Camera::rayTrace(const std::vector<Sphere> &spheres, const std::vector<
         if (!currentSphere) continue;
 
         float Ld = 0.3f;
-        Vector3 line = ray.origin + (st * ray.direction);
+        Vector3 hitPoint = ray.origin + (st * (ray.direction));
+        Vector3 normal = normalize(hitPoint - currentSphere->center);
 
         for (int z = 0; z < lights.size(); z++) {
             const Light* currentLight = &lights[z];
-            Vector3 vL = normalize(currentLight->position - (line)); // calculate the direction from hit point to light
-            Vector3 normal = normalize(line - currentSphere->center);
+            Vector3 vL = (currentLight->position - (hitPoint)); // calculate the direction from hit point to light
+            float rSquared = dot(vL, vL);
+            vL = normalize(vL);
 
-            Ld += currentSphere->kd * lights[z].intensity * std::max(0.0f, dot(normal, vL));
+            Ld += currentSphere->kd * (lights[z].intensity / (rSquared)) * std::max(0.0f, dot(normal, vL)); // diffuse
+
+            // now calculate specular
+
+            Vector3 vR = normalize( 2*dot(normal, vL)*normal-vL); // solve for vR
+
+            // now that we have the vR vector, calculate the specular light and add it to the total light
+            float test = currentSphere->ks * (lights[z].intensity / rSquared) * std::pow(std::max(0.0f, dot(normalize(ray.origin - hitPoint), vR)), 50);
+            Ld += test;
         }
 
         Ld = std::clamp(Ld, 0.0f, 1.0f);

@@ -14,6 +14,8 @@ public:
     std::vector<Light> lights {};
     std::vector<Sphere> spheres {};
 
+    float ambient = 0.3f;
+
     void addSphere(const Sphere &s) {spheres.push_back(s);}
     void addLight(const Light &l) {lights.push_back(l);}
 

@@ -175,25 +175,26 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     World world;
-    Light light({0,3,0}, 0.5);
+    Light light({0,3,0}, 15.0);
 
     //world.addLight(Light({0, 3, 0}, 1));
-    world.addSphere(Sphere(0.5, {-2, -2, 8}, 0x00FFFFFF));
-    world.addSphere(Sphere(1, {-2, -2, 5}, 0x007FFF));
-    world.addSphere(Sphere(2, {2, 1, 5}, 0xFF007F));
-
-    world.addSphere(Sphere(0.6, {-4,  1, 6}, 0xFFAA00)); // orange
-    world.addSphere(Sphere(0.8, {-1,  2, 4}, 0x00FF00)); // green
-    world.addSphere(Sphere(0.7, { 1, -1, 4}, 0x0000FF)); // blue
-    world.addSphere(Sphere(1.2, { 4,  0, 7}, 0xFFFFFF)); // white (tests clamp/blowout)
-    world.addSphere(Sphere(0.9, { 0,  0, 3}, 0xAAAAAA)); // gray (center, closer)
-    world.addSphere(Sphere(0.5, { 3, -2, 5}, 0x00FFFF)); // cyan
-    world.addSphere(Sphere(0.4, {-3, -1, 4}, 0xFF0000)); // red (small, near)
-    world.addSphere(Sphere(1.5, { 2,  3, 9}, 0x8A2BE2)); // violet (far + big)
-    world.addSphere(Sphere(0.6, { 5, -1, 6}, 0xFFD700)); // gold (right side)
-    world.addSphere(Sphere(0.7, {-5, -3,10}, 0xFF69B4)); // pink (far corner)
-    world.addSphere(Sphere(1.0, { 1,  4, 6}, 0x00FF7F)); // spring green (upper)
-    world.addSphere(Sphere(0.5, {-1,  0, 7}, 0x1E90FF)); // dodger blue (behind center)
+    // world.addSphere(Sphere(0.5, {-2, -2, 8}, 0x00FFFFFF));
+    // world.addSphere(Sphere(1, {-2, -2, 5}, 0x007FFF));
+    // world.addSphere(Sphere(2, {2, 1, 5}, 0xFF007F));
+    //
+    // world.addSphere(Sphere(0.6, {-4,  1, 6}, 0xFFAA00)); // orange
+    // world.addSphere(Sphere(0.8, {-1,  2, 4}, 0x00FF00)); // green
+    // world.addSphere(Sphere(0.7, { 1, -1, 4}, 0x0000FF)); // blue
+    // world.addSphere(Sphere(1.2, { 4,  0, 7}, 0xFFFFFF)); // white (tests clamp/blowout)
+    // world.addSphere(Sphere(0.9, { 0,  0, 3}, 0xAAAAAA)); // gray (center, closer)
+    // world.addSphere(Sphere(0.5, { 3, -2, 5}, 0x00FFFF)); // cyan
+    // world.addSphere(Sphere(0.4, {-3, -1, 4}, 0xFF0000)); // red (small, near)
+    // world.addSphere(Sphere(1.5, { 2,  3, 9}, 0x8A2BE2)); // violet (far + big)
+    // world.addSphere(Sphere(0.6, { 5, -1, 6}, 0xFFD700)); // gold (right side)
+    // world.addSphere(Sphere(0.7, {-5, -3,10}, 0xFF69B4)); // pink (far corner)
+    // world.addSphere(Sphere(1.0, { 1,  4, 6}, 0x00FF7F)); // spring green (upper)
+    // world.addSphere(Sphere(0.5, {-1,  0, 7}, 0x1E90FF)); // dodger blue (behind center)
+    world.addSphere(Sphere(2.0, {-1,0,8}, 0x0000FF));
     world.addLight(light);
     uint8_t* image = world.camera.rayTrace(world.spheres, world.lights);
 

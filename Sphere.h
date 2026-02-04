@@ -10,7 +10,8 @@
 struct Sphere {
     float radius {};
     Vector3 center {};
-    float kd = 1.0f; // diffuse coefficient
+    float kd = 2.0f; // diffuse coefficient
+    float ks = .25f; // specular coefficient
 
     int color;
     std::pair<bool, float>intersect(const Ray &ray, float min, float max) const {
