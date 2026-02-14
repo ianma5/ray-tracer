@@ -15,7 +15,9 @@ struct Shape {
     float diffuseCoefficient = 1.0f;
     float specularCoefficient = 0.5f;
     int shininess {100};
-    Shape(const Vector3 &c, uint32_t co, float dif, float spec, int shiny): center(c), color(co), diffuseCoefficient(dif), specularCoefficient(spec), shininess(shiny) {};
+    bool glazed = false;
+
+    Shape(const Vector3 &c, uint32_t co, float dif, float spec, int shiny, bool glazed = false): center(c), color(co), diffuseCoefficient(dif), specularCoefficient(spec), shininess(shiny), glazed(glazed) {};
     virtual ~Shape() {};
     virtual std::pair<bool, float>intersect(const Ray &ray, float min, float max) const = 0;
     virtual Vector3 getNormal(const Vector3& hitPoint) const = 0;
@@ -45,7 +47,7 @@ struct Sphere : Shape {
     Vector3 getNormal(const Vector3 &hitPoint) const override {
         return (hitPoint - center);
     };
-    Sphere(float r, const Vector3 &c, uint32_t co, float dif, float spec, int shiny) : Shape(c, co, dif, spec, shiny), radius(r) {};
+    Sphere(float r, const Vector3 &c, uint32_t co, float dif, float spec, int shiny, bool glazed = false) : Shape(c, co, dif, spec, shiny, glazed), radius(r) {};
 };
 
 struct Plane : Shape {
@@ -67,7 +69,7 @@ struct Plane : Shape {
     Vector3 getNormal(const Vector3 & hitPoint) const override {
         return planeNormal;
     };
-    Plane(const Vector3 &c, const Vector3 &n, uint32_t co, float dif, float spec, int shiny) : Shape(c, co, dif, spec, shiny), planeNormal(n) {};
+    Plane(const Vector3 &c, const Vector3 &n, uint32_t co, float dif, float spec, int shiny, bool glazed = false) : Shape(c, co, dif, spec, shiny, glazed), planeNormal(n) {};
 };
 
 

@@ -181,21 +181,33 @@ int main()
     0x0F35FF,                 // blue
     1.25f,                     // diffuse coefficient
     0.1f,                     // specular coefficient
-    32.0f                     // shininess (wide highlight)
+    32.0f,                     // shininess (wide highlight)
+    false
     ));
 
     world.addShape(std::make_unique<Sphere>(
         1.5f,                     // radius
-        Vector3{ 4.0f, -2.4f, 4.0f },  // center (right sphere)
-        0xFF007F,                 // pink
+        Vector3{ 4.0f, -2.4f, 5.0f },  // center (right sphere)
+        0x8F00FF,
+        //0xFF007F,                 // pink
         0.7f,                     // diffuse coefficient
-        1.5f,                     // specular coefficient
-        32.0f                    // shininess (tight highlight)
+        0.5f,                     // specular coefficient
+        32.0f,                    // shininess (tight highlight)
+        false
+    ));
+    world.addShape(std::make_unique<Sphere>(
+    1.5f,                     // radius
+    Vector3{ -3.5f, 1.0f, 7.0f },  // center (right sphere)
+    0xFF5F15,                 // orange
+    0.7f,                     // diffuse coefficient
+    0.1f,                     // specular coefficient
+    32.0f,                    // shininess (tight highlight)
+    true
     ));
     world.addLight(Light(
     Vector3{ 0.0f, 2.0f, 2.5f }, // above + slightly in front
     20.0f ));
-    world.addShape(std::make_unique<Plane>(Plane({0,-4.0f,0}, {0,1,0}, 0x808080, 1.0f, 0.1f, 10.0)));
+    world.addShape(std::make_unique<Plane>(Plane({0,-4.0f,0}, {0,1,0}, 0x808080, 1.0f, 0.1f, 10.0, true)));
 
     uint8_t* image = world.camera.rayTrace(world.shapes, world.lights);
 
