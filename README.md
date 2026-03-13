@@ -10,3 +10,5 @@ To compile the program run:
 
 `./raytracer`
 
+
+<img src="example_image.png" alt="Descriptive alt text" width="500">
